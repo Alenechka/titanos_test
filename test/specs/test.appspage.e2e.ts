@@ -53,5 +53,5 @@ describe('TitanOS Apps Page', async () => {
     after('Close browser after test suit', () => {
         browser.closeWindow();
     });
-})
+});
 

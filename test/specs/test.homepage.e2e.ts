@@ -1,4 +1,4 @@
-import HomePage from '../pageobjects/pages/home.page'
+import HomePage from '../pageobjects/pages/home.page';
 
 // ToDo: Move to config file
 const TIMEOUT_LOAD_PAGE_MS = 30000;
@@ -30,5 +30,5 @@ describe('TitanOS Home Page', async () => {
     after('Close browser after test suit', () => {
         browser.closeWindow();
     });
-})
+});
 
