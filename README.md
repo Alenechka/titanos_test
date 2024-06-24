@@ -54,6 +54,10 @@ npx allure serve allure-results
 
 This will start a local server and open the Allure report in your default web browser.
 
+Results will look like following
+
+![alt text](report_example.png)
+
 ### Linting and Pre-commit Hooks
 
 This project uses ESLint for code linting and Husky for Git hooks. ESLint ensures that your code adheres to a consistent style, and Husky runs linting checks before each commit to prevent committing code with linting errors.
