@@ -5,7 +5,6 @@
  * @param condition - a callback function returning true or false
  * @param limit - a number of retries
  */
-// ToDo: Add fail with message
 export async function doActionUntilCondition(action: Function, condition: Function, limit: number = 10) {
     for (let i = 0; i < limit; i++) {
         if (await condition()) {
@@ -15,11 +14,21 @@ export async function doActionUntilCondition(action: Function, condition: Functi
     }
 }
 
+/**
+ * Splits the input string by the specified separator and returns the last part.
+ *
+ * @param {string} value - The input string to split.
+ * @param {string} sep - The separator to use for splitting the string.
+ * @returns {string} The last part of the split string.
+ */
 export function getLastPartOfString(value: string, sep: string) {
     const valueParts = value.split(sep);
     return valueParts[valueParts.length - 1];
 }
 
+/**
+ * Class to incapsulate press button actions.
+ */
 class RemoteControlEmulator {
     public BUTTON_OK = '\uE007';  // Keyboard key Enter
 
@@ -44,9 +53,10 @@ class RemoteControlEmulator {
     }
     
     /**
-     * 
-     * @param buttonKey 
-     * @param holdTime 
+     * Simulates pressing and holding a button key for a specified duration.
+     *
+     * @param {string} buttonKey - The key to press and hold.
+     * @param {number} holdTime - The duration to hold the key, in milliseconds.
      */
     public async pressAndHoldButton(buttonKey: string, holdTime: number) {
         await browser.performActions([{

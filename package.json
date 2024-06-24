@@ -9,7 +9,6 @@
     "prepare": "husky install"
   },
   "author": "Alina",
-  "license": "ISC",
   "dependencies": {
     "@wdio/cli": "^8.39.0",
     "mochawesome": "^7.1.3"

@@ -7,7 +7,7 @@ export default class Menu {
     get focusedMenuItem() { return $$('//div[starts-with(@data-testid, "main-menu-item-") and @data-focused="focused"]') };
 
     /**
-     * If menu is not is focus, move focus to it.
+     * If menu is not is focus, move focus to it no matter where focus is located right now.
      */
     async focus() {
         await doActionUntilCondition(
@@ -20,8 +20,10 @@ export default class Menu {
     }
 
     /**
+     * Navigate to element on menu by name. 
+     * If current element is on the right  - press right untill reached target, left otherwise.
      * 
-     * @param menuItem 
+     * @param target - name of the target menu element 
      */
     async navigateTo(target: string) {
         this.focus();

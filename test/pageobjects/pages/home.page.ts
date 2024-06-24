@@ -22,7 +22,7 @@ class HomePage extends Page {
     }
 
     /**
-     * 
+     *  Deletes focused app from favourite apps.
      */
     public async deleteFavouriteApp() {
         await RemoteControlEmulator.pressKeyRight();
@@ -32,7 +32,7 @@ class HomePage extends Page {
     }
 
     /**
-     * 
+     * Navigates down to first app in favourites apps category untill finds one with retries.
      */
     public async navigateToFavouriteApps() {
         await doActionUntilCondition(

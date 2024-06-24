@@ -16,7 +16,8 @@ export default class App {
 
         await RemoteControlEmulator.pressOkButton();
 
-        // Wait for loading of app addition. Not clear what to wait for.
+        // Wait for loading of app addition. 
+        // Not clear what elemant to wait for, but in real scenario there should be test label on element.
         await browser.pause(3000);
     }
 }
