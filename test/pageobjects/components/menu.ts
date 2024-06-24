@@ -1,22 +1,19 @@
 import { doActionUntilCondition, getLastPartOfString } from "../utils";
+import RemoteControlEmulator from '../utils';
 
 export default class Menu {
 
-    get items() { return $$('(.//div[starts-with(@data-testid, "main-menu-item-")])') };
+    get items() { return $$('.//div[starts-with(@data-testid, "main-menu-item-")]') };
+    get focusedMenuItem() { return $$('//div[starts-with(@data-testid, "main-menu-item-") and @data-focused="focused"]') };
 
     /**
      * If menu is not is focus, move focus to it.
      */
     async focus() {
-        let items = await this.items;
-
         await doActionUntilCondition(
+            async () => await RemoteControlEmulator.pressKeyUp(),
             async () => {
-                await browser.keys(['ArrowUp']);
-                items = await this.items;
-            },
-            async () => {
-                return items.some( async (e) => await e.getAttribute('data-focused') === 'focused' );
+                return (await this.items).some( async (e) => await e.getAttribute('data-focused') === 'focused' );
             },
             10
         );
@@ -45,26 +42,25 @@ export default class Menu {
             }
         }
 
-        let moveDirection = '';
+        let move: Function;
         if (focusedItemIdx < targetItemIdx) {
-            moveDirection = 'ArrowRight';
+            move = RemoteControlEmulator.pressKeyRight;
         } else if (focusedItemIdx > targetItemIdx) {
-            moveDirection = 'ArrowLeft';
+            move = RemoteControlEmulator.pressKeyLeft;
         }
 
         // Go to menu item
-        // ToDo: Refactor this bullshit condition
         await doActionUntilCondition(
+            async () => await move(),
             async () => {
-                await browser.keys([moveDirection]);
-            },
-            async () => {
-                return (await this.items).some( async (e) => (await e.getAttribute('data-focused') === 'focused' && getLastPartOfString(await e.getAttribute('data-testid'), '-') === target) );
+                const focused = await this.focusedMenuItem[0].getAttribute('data-testid');
+                const focusedItemName = getLastPartOfString(focused, '-');
+                return (target === focusedItemName);
             },
             10
         );
         
         // Click on menu item
-        await browser.keys(['\uE007']);
+        await RemoteControlEmulator.pressOkButton();
     }
 }
